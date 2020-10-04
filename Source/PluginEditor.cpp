@@ -19,10 +19,11 @@ WozToneGeneratorAudioProcessorEditor::WozToneGeneratorAudioProcessorEditor (WozT
     
     toneFrequency.setSliderStyle (juce::Slider::LinearBarVertical);
     toneFrequency.setRange (20.0, 20000.0, 1.0);
-    toneFrequency.setTextBoxStyle (juce::Slider::NoTextBox, false, 90, 0);
+    toneFrequency.setValue(500.0);
+    toneFrequency.setTextBoxStyle (juce::Slider::NoTextBox, false, 90, 30);
+
     toneFrequency.setPopupDisplayEnabled (true, false, this);
     toneFrequency.setTextValueSuffix (" hz");
-    toneFrequency.setValue(1.0);
  
     // this function adds the slider to the editor
     addAndMakeVisible (&toneFrequency);
@@ -43,7 +44,7 @@ void WozToneGeneratorAudioProcessorEditor::paint (juce::Graphics& g)
 
     g.setColour (juce::Colours::white);
     g.setFont (15.0f);
-    g.drawFittedText ("Woz Tone Generator", getLocalBounds(), juce::Justification::centred, 1);
+    g.drawFittedText ("Woz Tone Generator", getLocalBounds(), juce::Justification::centredTop, 1);
 }
 
 void WozToneGeneratorAudioProcessorEditor::resized()
