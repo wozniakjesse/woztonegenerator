@@ -11,17 +11,10 @@
 
 //==============================================================================
 WozToneGeneratorAudioProcessor::WozToneGeneratorAudioProcessor()
-#ifndef JucePlugin_PreferredChannelConfigurations
-     : AudioProcessor (BusesProperties()
-                     #if ! JucePlugin_IsMidiEffect
-                      #if ! JucePlugin_IsSynth
-                       .withInput  ("Input",  juce::AudioChannelSet::stereo(), true)
-                      #endif
-                       .withOutput ("Output", juce::AudioChannelSet::stereo(), true)
-                     #endif
-                       )
-#endif
+     : AudioProcessor (BusesProperties().withOutput ("Output", juce::AudioChannelSet::stereo(), true)),
+       keyboardComponent (keyboardState, juce::MidiKeyboardComponent::horizontalKeyboard)
 {
+    startTimer (400);
 }
 
 WozToneGeneratorAudioProcessor::~WozToneGeneratorAudioProcessor()
@@ -98,8 +91,7 @@ void WozToneGeneratorAudioProcessor::prepareToPlay (double sampleRate, int sampl
 
 void WozToneGeneratorAudioProcessor::releaseResources()
 {
-    // When playback stops, you can use this as an opportunity to free up any
-    // spare memory, etc.
+    keyboardState.reset();
 }
 
 #ifndef JucePlugin_PreferredChannelConfigurations
@@ -167,6 +159,11 @@ void WozToneGeneratorAudioProcessor::setStateInformation (const void* data, int 
 void WozToneGeneratorAudioProcessor::updateAngleDelta() {
     auto cyclesPerSample = toneFrequency / currentSampleRate;
     angleDelta = cyclesPerSample * 2.0 * juce::MathConstants<double>::pi;
+}
+
+void WozToneGeneratorAudioProcessor::timerCallback() {
+    keyboardComponent.grabKeyboardFocus();
+    stopTimer();
 }
 
 //==============================================================================

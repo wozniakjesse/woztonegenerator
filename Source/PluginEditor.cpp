@@ -15,7 +15,7 @@ WozToneGeneratorAudioProcessorEditor::WozToneGeneratorAudioProcessorEditor (WozT
 {
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
-    setSize (400, 300);
+    setSize (600, 300);
     
     // tone frequency slider
     toneFrequency.setSliderStyle (juce::Slider::LinearBar);
@@ -40,6 +40,10 @@ WozToneGeneratorAudioProcessorEditor::WozToneGeneratorAudioProcessorEditor (WozT
     // add the listener to the slider
     toneFrequency.addListener (this);
     volumeLevel.addListener(this);
+    
+    addAndMakeVisible (audioProcessor.keyboardComponent);
+
+    
 }
 
 WozToneGeneratorAudioProcessorEditor::~WozToneGeneratorAudioProcessorEditor()
@@ -62,6 +66,7 @@ void WozToneGeneratorAudioProcessorEditor::resized()
     // sets the position and size of the slider with arguments (x, y, width, height)
     toneFrequency.setBounds (20, 80, getWidth() - 40, 20);
     volumeLevel.setBounds(20, 120, getWidth() - 40, 20);
+    audioProcessor.keyboardComponent.setBounds (10, getHeight() / 2, getWidth() - 20, getHeight() / 2 - 10);
 }
 
 void WozToneGeneratorAudioProcessorEditor::sliderValueChanged(juce::Slider* slider) {
