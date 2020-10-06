@@ -14,7 +14,6 @@ WozToneGeneratorAudioProcessor::WozToneGeneratorAudioProcessor()
      : AudioProcessor (BusesProperties().withOutput ("Output", juce::AudioChannelSet::stereo(), true)),
        keyboardComponent (keyboardState, juce::MidiKeyboardComponent::horizontalKeyboard)
 {
-    startTimer (400);
 }
 
 WozToneGeneratorAudioProcessor::~WozToneGeneratorAudioProcessor()
@@ -159,11 +158,6 @@ void WozToneGeneratorAudioProcessor::setStateInformation (const void* data, int 
 void WozToneGeneratorAudioProcessor::updateAngleDelta() {
     auto cyclesPerSample = toneFrequency / currentSampleRate;
     angleDelta = cyclesPerSample * 2.0 * juce::MathConstants<double>::pi;
-}
-
-void WozToneGeneratorAudioProcessor::timerCallback() {
-    keyboardComponent.grabKeyboardFocus();
-    stopTimer();
 }
 
 //==============================================================================

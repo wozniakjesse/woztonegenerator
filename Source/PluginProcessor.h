@@ -13,8 +13,7 @@
 //==============================================================================
 /**
 */
-class WozToneGeneratorAudioProcessor  : public juce::AudioProcessor,
-                                        private juce::Timer
+class WozToneGeneratorAudioProcessor  : public juce::AudioProcessor
 {
 public:
     juce::MidiKeyboardComponent keyboardComponent;
@@ -59,14 +58,10 @@ public:
     void setStateInformation (const void* data, int sizeInBytes) override;
     
     void updateAngleDelta();
-    
-    juce::MidiKeyboardComponent getKeyboardcomponent();
 
 private:
     juce::MidiKeyboardState keyboardState;
 //    SynthAudioSource synthAudioSource;
-    
-    void timerCallback() override;
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (WozToneGeneratorAudioProcessor)

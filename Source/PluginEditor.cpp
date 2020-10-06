@@ -41,9 +41,7 @@ WozToneGeneratorAudioProcessorEditor::WozToneGeneratorAudioProcessorEditor (WozT
     toneFrequency.addListener (this);
     volumeLevel.addListener(this);
     
-    addAndMakeVisible (audioProcessor.keyboardComponent);
-
-    
+    addAndMakeVisible(audioProcessor.keyboardComponent);
 }
 
 WozToneGeneratorAudioProcessorEditor::~WozToneGeneratorAudioProcessorEditor()
@@ -59,6 +57,12 @@ void WozToneGeneratorAudioProcessorEditor::paint (juce::Graphics& g)
     g.setColour (juce::Colours::white);
     g.setFont (15.0f);
     g.drawFittedText ("Woz Tone Generator", getLocalBounds(), juce::Justification::centredTop, 1);
+    
+    if (!audioProcessor.keyboardComponent.hasKeyboardFocus(true) &&
+        audioProcessor.keyboardComponent.isVisible()) {
+            audioProcessor.keyboardComponent.grabKeyboardFocus();
+    }
+    
 }
 
 void WozToneGeneratorAudioProcessorEditor::resized()
