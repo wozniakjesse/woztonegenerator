@@ -12,6 +12,7 @@
 //==============================================================================
 WozToneGeneratorAudioProcessor::WozToneGeneratorAudioProcessor()
      : AudioProcessor (BusesProperties().withOutput ("Output", juce::AudioChannelSet::stereo(), true)),
+       synthAudioSource(keyboardState),
        keyboardComponent (keyboardState, juce::MidiKeyboardComponent::horizontalKeyboard)
 {
 }
@@ -85,12 +86,13 @@ void WozToneGeneratorAudioProcessor::changeProgramName (int index, const juce::S
 //==============================================================================
 void WozToneGeneratorAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
-    currentSampleRate = sampleRate;
+    synthAudioSource.prepareToPlay(samplesPerBlock, sampleRate);
 }
 
 void WozToneGeneratorAudioProcessor::releaseResources()
 {
     keyboardState.reset();
+    synthAudioSource.releaseResources();
 }
 
 #ifndef JucePlugin_PreferredChannelConfigurations
@@ -119,15 +121,7 @@ bool WozToneGeneratorAudioProcessor::isBusesLayoutSupported (const BusesLayout& 
 
 void WozToneGeneratorAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::MidiBuffer& midiMessages)
 {
-    auto* leftChannel = buffer.getWritePointer (0);
-    auto* rightChannel = buffer.getWritePointer(1);
-
-    for (auto sample = 0; sample < buffer.getNumSamples(); ++sample) {
-        auto currentSample = (float) std::sin(currentAngle);
-        currentAngle += angleDelta;
-        leftChannel[sample]  = currentSample * volumeLevel;
-        rightChannel[sample] = currentSample * volumeLevel;
-    }
+    return;
 }
 
 //==============================================================================
@@ -153,11 +147,6 @@ void WozToneGeneratorAudioProcessor::setStateInformation (const void* data, int 
 {
     // You should use this method to restore your parameters from this memory block,
     // whose contents will have been created by the getStateInformation() call.
-}
-
-void WozToneGeneratorAudioProcessor::updateAngleDelta() {
-    auto cyclesPerSample = toneFrequency / currentSampleRate;
-    angleDelta = cyclesPerSample * 2.0 * juce::MathConstants<double>::pi;
 }
 
 juce::MidiKeyboardComponent* WozToneGeneratorAudioProcessor::getKeyboard()

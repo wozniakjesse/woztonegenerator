@@ -9,6 +9,7 @@
 #pragma once
 
 #include <JuceHeader.h>
+#include "Synth.h"
 
 //==============================================================================
 /**
@@ -18,7 +19,7 @@ class WozToneGeneratorAudioProcessor  : public juce::AudioProcessor
 public:
     float toneFrequency;
     double volumeLevel = 0.125f;
-    double currentSampleRate = 0.0, currentAngle = 0.0, angleDelta = 0.0;
+    double currentSampleRate = 0.0;
     //==============================================================================
     WozToneGeneratorAudioProcessor();
     ~WozToneGeneratorAudioProcessor() override;
@@ -56,13 +57,11 @@ public:
     void getStateInformation (juce::MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
     
-    void updateAngleDelta();
-    
     juce::MidiKeyboardComponent* getKeyboard();
 
 private:
     juce::MidiKeyboardState keyboardState;
-    //    SynthAudioSource synthAudioSource;
+    SynthAudioSource synthAudioSource;
     juce::MidiKeyboardComponent keyboardComponent;
 
     //==============================================================================

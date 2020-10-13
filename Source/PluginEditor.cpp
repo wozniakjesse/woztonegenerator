@@ -81,6 +81,4 @@ void WozToneGeneratorAudioProcessorEditor::resized()
 void WozToneGeneratorAudioProcessorEditor::sliderValueChanged(juce::Slider* slider) {
     audioProcessor.toneFrequency = toneFrequency.getValue();
     audioProcessor.volumeLevel = volumeLevel.getValue() / 100;
-    if (audioProcessor.currentSampleRate > 0.0)
-        audioProcessor.updateAngleDelta();
 }
