@@ -45,7 +45,7 @@ WozToneGeneratorAudioProcessorEditor::WozToneGeneratorAudioProcessorEditor (WozT
     ADSRParams params = {0,0,0,0};
     adsrComponent.addParams(&params);
     addAndMakeVisible(adsrComponent);
-    addAndMakeVisible(audioProcessor.keyboardComponent);
+    addAndMakeVisible(*audioProcessor.getKeyboard());
 }
 
 WozToneGeneratorAudioProcessorEditor::~WozToneGeneratorAudioProcessorEditor()
@@ -62,9 +62,10 @@ void WozToneGeneratorAudioProcessorEditor::paint (juce::Graphics& g)
     g.setFont (15.0f);
     g.drawFittedText ("Woz Tone Generator", getLocalBounds(), juce::Justification::centredTop, 1);
     
-    if (!audioProcessor.keyboardComponent.hasKeyboardFocus(true) &&
-        audioProcessor.keyboardComponent.isVisible()) {
-            audioProcessor.keyboardComponent.grabKeyboardFocus();
+    if (!audioProcessor.getKeyboard()->hasKeyboardFocus(true) &&
+        audioProcessor.getKeyboard()->isVisible())
+    {
+            audioProcessor.getKeyboard()->grabKeyboardFocus();
     }
     
 }
@@ -74,7 +75,7 @@ void WozToneGeneratorAudioProcessorEditor::resized()
     // sets the position and size of the slider with arguments (x, y, width, height)
     toneFrequency.setBounds (20, 80, getWidth() - 40, 20);
     volumeLevel.setBounds(20, 120, getWidth() - 40, 20);
-    audioProcessor.keyboardComponent.setBounds (10, getHeight() / 2, getWidth() - 20, getHeight() / 2 - 10);
+    audioProcessor.getKeyboard()->setBounds (10, getHeight() / 2, getWidth() - 20, getHeight() / 2 - 10);
 }
 
 void WozToneGeneratorAudioProcessorEditor::sliderValueChanged(juce::Slider* slider) {

@@ -16,7 +16,6 @@
 class WozToneGeneratorAudioProcessor  : public juce::AudioProcessor
 {
 public:
-    juce::MidiKeyboardComponent keyboardComponent;
     float toneFrequency;
     double volumeLevel = 0.125f;
     double currentSampleRate = 0.0, currentAngle = 0.0, angleDelta = 0.0;
@@ -58,10 +57,13 @@ public:
     void setStateInformation (const void* data, int sizeInBytes) override;
     
     void updateAngleDelta();
+    
+    juce::MidiKeyboardComponent* getKeyboard();
 
 private:
     juce::MidiKeyboardState keyboardState;
-//    SynthAudioSource synthAudioSource;
+    //    SynthAudioSource synthAudioSource;
+    juce::MidiKeyboardComponent keyboardComponent;
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (WozToneGeneratorAudioProcessor)

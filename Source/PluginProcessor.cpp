@@ -160,6 +160,11 @@ void WozToneGeneratorAudioProcessor::updateAngleDelta() {
     angleDelta = cyclesPerSample * 2.0 * juce::MathConstants<double>::pi;
 }
 
+juce::MidiKeyboardComponent* WozToneGeneratorAudioProcessor::getKeyboard()
+{
+    return &keyboardComponent;
+}
+
 //==============================================================================
 // This creates new instances of the plugin..
 juce::AudioProcessor* JUCE_CALLTYPE createPluginFilter()
