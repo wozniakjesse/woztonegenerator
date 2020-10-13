@@ -8,6 +8,7 @@
 
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
+#include "ADSRComponent.h"
 
 //==============================================================================
 WozToneGeneratorAudioProcessorEditor::WozToneGeneratorAudioProcessorEditor (WozToneGeneratorAudioProcessor& p)
@@ -17,30 +18,33 @@ WozToneGeneratorAudioProcessorEditor::WozToneGeneratorAudioProcessorEditor (WozT
     // editor's size to whatever you need it to be.
     setSize (600, 300);
     
-    // tone frequency slider
-    toneFrequency.setSliderStyle (juce::Slider::LinearBar);
-    toneFrequency.setRange (20.0, 20000.0, 1.0);
-    toneFrequency.setValue(500.0);
-    toneFrequency.setTextBoxStyle (juce::Slider::TextBoxAbove, false, 90, 30);
-    toneFrequency.setPopupDisplayEnabled (false, false, this);
-    toneFrequency.setTextValueSuffix (" hz");
+//    // tone frequency slider
+//    toneFrequency.setSliderStyle (juce::Slider::LinearBar);
+//    toneFrequency.setRange (20.0, 20000.0, 1.0);
+//    toneFrequency.setValue(500.0);
+//    toneFrequency.setTextBoxStyle (juce::Slider::TextBoxAbove, false, 90, 30);
+//    toneFrequency.setPopupDisplayEnabled (false, false, this);
+//    toneFrequency.setTextValueSuffix (" hz");
+//
+//    // volume level slider
+//    volumeLevel.setSliderStyle(juce::Slider::LinearBar);
+//    volumeLevel.setRange (0.0, 100.0, 1.0);
+//    volumeLevel.setValue(12.5);
+//    volumeLevel.setTextBoxStyle (juce::Slider::TextBoxAbove, false, 90, 30);
+//    volumeLevel.setPopupDisplayEnabled (false, false, this);
+//    volumeLevel.setTextValueSuffix (" %");
+//
+//    // this function adds the slider to the editor
+//    addAndMakeVisible (&toneFrequency);
+//    addAndMakeVisible(&volumeLevel);
+//
+//    // add the listener to the slider
+//    toneFrequency.addListener (this);
+//    volumeLevel.addListener(this);
     
-    // volume level slider
-    volumeLevel.setSliderStyle (juce::Slider::LinearBar);
-    volumeLevel.setRange (0.0, 100.0, 1.0);
-    volumeLevel.setValue(12.5);
-    volumeLevel.setTextBoxStyle (juce::Slider::TextBoxAbove, false, 90, 30);
-    volumeLevel.setPopupDisplayEnabled (false, false, this);
-    volumeLevel.setTextValueSuffix (" %");
- 
-    // this function adds the slider to the editor
-    addAndMakeVisible (&toneFrequency);
-    addAndMakeVisible(&volumeLevel);
-    
-    // add the listener to the slider
-    toneFrequency.addListener (this);
-    volumeLevel.addListener(this);
-    
+    ADSRParams params = {0,0,0,0};
+    adsrComponent.addParams(&params);
+    addAndMakeVisible(adsrComponent);
     addAndMakeVisible(audioProcessor.keyboardComponent);
 }
 

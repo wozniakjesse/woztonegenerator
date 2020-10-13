@@ -10,6 +10,7 @@
 
 #include <JuceHeader.h>
 #include "PluginProcessor.h"
+#include "ADSRComponent.h"
 
 //==============================================================================
 /**
@@ -34,6 +35,7 @@ private:
     
     juce::Slider toneFrequency;
     juce::Slider volumeLevel;
+    ADSRComponent adsrComponent;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (WozToneGeneratorAudioProcessorEditor)
 };

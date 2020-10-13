@@ -2,10 +2,13 @@
 
 <JUCERPROJECT id="JG6Qy2" name="WozToneGenerator" projectType="audioplug" useAppConfig="0"
               addUsingNamespaceToJuceHeader="0" displaySplashScreen="1" jucerFormatVersion="1"
-              pluginFormats="buildVST3" pluginVST3Category="Generator,Instrument"
+              pluginFormats="buildStandalone,buildVST3" pluginVST3Category="Generator,Instrument"
               pluginCharacteristicsValue="pluginIsSynth,pluginWantsMidiIn">
   <MAINGROUP id="d8qlc9" name="WozToneGenerator">
     <GROUP id="{68842D1A-4374-92D3-A3A8-934F3915A0EB}" name="Source">
+      <FILE id="Ufd32q" name="ADSRComponent.cpp" compile="1" resource="0"
+            file="Source/ADSRComponent.cpp"/>
+      <FILE id="UxZNBB" name="ADSRComponent.h" compile="0" resource="0" file="Source/ADSRComponent.h"/>
       <FILE id="kAKxQy" name="PluginProcessor.cpp" compile="1" resource="0"
             file="Source/PluginProcessor.cpp"/>
       <FILE id="h36vEs" name="PluginProcessor.h" compile="0" resource="0"
