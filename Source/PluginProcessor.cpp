@@ -122,6 +122,9 @@ bool WozToneGeneratorAudioProcessor::isBusesLayoutSupported (const BusesLayout& 
 void WozToneGeneratorAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::MidiBuffer& midiMessages)
 {
     juce::AudioSourceChannelInfo audioInfo(buffer);
+    keyboardState.processNextMidiBuffer (midiMessages, audioInfo.startSample,
+                                         audioInfo.numSamples, true);
+    synthAudioSource.setMidiBuffer(&midiMessages);
     synthAudioSource.getNextAudioBlock(audioInfo);
 }
 

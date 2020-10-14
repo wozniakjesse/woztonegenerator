@@ -136,15 +136,17 @@ public:
     {
         bufferToFill.clearActiveBufferRegion();
 
-        juce::MidiBuffer incomingMidi;
-        keyboardState.processNextMidiBuffer (incomingMidi, bufferToFill.startSample,
-                                             bufferToFill.numSamples, true);       // [4]
-
-        synth.renderNextBlock (*bufferToFill.buffer, incomingMidi,
+        synth.renderNextBlock (*bufferToFill.buffer, *midiBuffer,
                                bufferToFill.startSample, bufferToFill.numSamples); // [5]
+    }
+    
+    void setMidiBuffer(juce::MidiBuffer* buffer)
+    {
+        midiBuffer = buffer;
     }
 
 private:
+    juce::MidiBuffer* midiBuffer;
     juce::MidiKeyboardState& keyboardState;
     juce::Synthesiser synth;
 };
