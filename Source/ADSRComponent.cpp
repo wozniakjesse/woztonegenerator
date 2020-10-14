@@ -18,39 +18,43 @@ ADSRComponent::ADSRComponent()
     setSize (600, 300);
     
     // attack
-    attack.setSliderStyle (juce::Slider::LinearBar);
-    attack.setRange (20.0, 20000.0, 1.0);
-    attack.setValue(500.0);
+    attack.setSliderStyle (juce::Slider::RotaryHorizontalVerticalDrag);
+    attack.setRange (0.0, 10.0, 0.01);
+    attack.setValue(0.0);
     attack.setTextBoxStyle (juce::Slider::TextBoxAbove, false, 90, 30);
     attack.setPopupDisplayEnabled (false, false, this);
-    attack.setTextValueSuffix (" hz");
+    attack.setTextValueSuffix (" sec");
+    attack.setRotaryParameters(0, 2, true);
     addAndMakeVisible (&attack);
     attack.addListener (this);
     
-    decay.setSliderStyle (juce::Slider::LinearBar);
-    decay.setRange (20.0, 20000.0, 1.0);
-    decay.setValue(500.0);
+    decay.setSliderStyle (juce::Slider::RotaryHorizontalVerticalDrag);
+    decay.setRange (0.0, 10.0, 0.01);
+    decay.setValue(1.0);
     decay.setTextBoxStyle (juce::Slider::TextBoxAbove, false, 90, 30);
     decay.setPopupDisplayEnabled (false, false, this);
-    decay.setTextValueSuffix (" hz");
+    decay.setTextValueSuffix (" sec");
+    decay.setRotaryParameters(0, 2, true);
     addAndMakeVisible (&decay);
     decay.addListener (this);
 
-    sustain.setSliderStyle (juce::Slider::LinearBar);
-    sustain.setRange (20.0, 20000.0, 1.0);
-    sustain.setValue(500.0);
+    sustain.setSliderStyle (juce::Slider::RotaryHorizontalVerticalDrag);
+    sustain.setRange (0.0, 10.0, 0.01);
+    sustain.setValue(0.5);
     sustain.setTextBoxStyle (juce::Slider::TextBoxAbove, false, 90, 30);
     sustain.setPopupDisplayEnabled (false, false, this);
-    sustain.setTextValueSuffix (" hz");
+    sustain.setTextValueSuffix (" sec");
+    sustain.setRotaryParameters(0, 2, true);
     addAndMakeVisible (&sustain);
     sustain.addListener (this);
 
-    release.setSliderStyle (juce::Slider::LinearBar);
-    release.setRange (20.0, 20000.0, 1.0);
-    release.setValue(500.0);
+    release.setSliderStyle (juce::Slider::RotaryHorizontalVerticalDrag);
+    release.setRange (0.0, 10.0, 0.01);
+    release.setValue(0.5);
     release.setTextBoxStyle (juce::Slider::TextBoxAbove, false, 90, 30);
     release.setPopupDisplayEnabled (false, false, this);
-    release.setTextValueSuffix (" hz");
+    release.setTextValueSuffix (" sec");
+    release.setRotaryParameters(0, 2, true);
     addAndMakeVisible (&release);
     release.addListener (this);
 }
@@ -70,14 +74,19 @@ void ADSRComponent::paint(juce::Graphics& g)
 
     g.setColour (juce::Colours::white);
     g.setFont (15.0f);
+    
+    attack.setColour(0x0001, juce::Colours::white);
+    decay.setColour(0x0001, juce::Colours::white);
+    sustain.setColour(0x0001, juce::Colours::white);
+    release.setColour(0x0001, juce::Colours::white);
 }
 
 void ADSRComponent::resized()
 {
-    attack.setBounds (20, 30, getWidth() - 40, 20);
-    decay.setBounds (20, 60, getWidth() - 40, 20);
-    sustain.setBounds (20, 90, getWidth() - 40, 20);
-    release.setBounds (20, 120, getWidth() - 40, 20);
+    attack.setBounds (50, 50, 50, 50);
+    decay.setBounds (125, 50, 50, 50);
+    sustain.setBounds (200, 50, 50, 50);
+    release.setBounds (275, 50, 50, 50);
 }
 
 void ADSRComponent::sliderValueChanged(juce::Slider* slider)
